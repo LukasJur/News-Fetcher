@@ -1,7 +1,11 @@
 {
-  "name": "react-boilerplate",
+  "name": "news-fetcher",
   "version": "1.0.0",
-  "description": "Basic React Boilerplate",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukasJur/News-Fetcher.git"
+  }
+  "description": "Website utilizing News API",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -31,7 +35,7 @@
       "raf/polyfill"
     ]
   },
-  "author": "",
+  "author": "Lukas Jurevicius",
   "license": "MIT",
   "dependencies": {
     "@babel/preset-env": "^7.2.3",

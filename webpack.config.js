@@ -23,6 +23,16 @@ const client = {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist/public')
     },
+    resolve: {
+      alias: {
+        components: path.resolve(__dirname, 'src/client/core/components'),
+        images: path.resolve(__dirname, 'src/client/core/assets/images'),
+        api: path.resolve(__dirname, 'src/client/core/api'),
+        ducks: path.resolve(__dirname, 'src/client/core/state-management/ducks'),
+        helpers: path.resolve(__dirname, 'src/client/core/helpers'),
+      },
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    },
     module: moduleObj,
     plugins: [
         new HtmlWebPackPlugin({

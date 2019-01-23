@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 
 export default class WebServer {
   constructor() {
     this.app = express();
-    this.app.use(express.static("dist/public"));
+    this.app.use(express.static('dist/public'));
   }
 
   start() {

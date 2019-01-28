@@ -1,7 +1,10 @@
 let path = require('path');
 let nodeExternals = require('webpack-node-externals');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const devMode = process.env.NODE_ENV !== 'production';
 const moduleObj = {
     rules: [
         {
@@ -10,7 +13,33 @@ const moduleObj = {
             use: {
                 loader: "babel-loader"
             },
-        }
+        },
+        {
+            test: /\.css$/,
+          use: [
+            devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  autoprefixer,
+                ],
+              },
+            },
+          ],
+        },
+        {
+          test: /.(jpg|ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+              publicPath: '../assets/',
+            },
+          }],
+        },
     ],
 };
 const client = {
@@ -37,7 +66,13 @@ const client = {
     plugins: [
         new HtmlWebPackPlugin({
             template: 'src/client/index.html'
-        })
+        }),
+        new MiniCssExtractPlugin({
+          // Options similar to the same options in webpackOptions.output
+          // both options are optional
+          filename: devMode ? '[name].css' : '[name].[hash].css',
+          chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        }),
     ]
 };
 const server = {

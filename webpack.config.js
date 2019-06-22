@@ -3,6 +3,8 @@ let nodeExternals = require('webpack-node-externals');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 const devMode = process.env.NODE_ENV !== 'production';
 const moduleObj = {
@@ -13,6 +15,11 @@ const moduleObj = {
             use: {
                 loader: "babel-loader"
             },
+        },
+        {
+            test: /\.jsx?$/,
+           include: /node_modules/,
+            use: ['react-hot-loader/webpack'],
         },
         {
             test: /\.css$/,
@@ -30,22 +37,25 @@ const moduleObj = {
           ],
         },
         {
-          test: /.(jpg|ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          test: /\.(png|jpg|gif)$/,
           use: [{
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'fonts/',
-              publicPath: '../assets/',
+              outputPath: '/assets/images/',
+              publicPath: '../src/client/assets/',
             },
           }],
         },
     ],
 };
 const client = {
-    mode: 'development',
+  name: 'client',
+  mode: 'development',
     entry: {
-        'client': './src/client/index.js'
+    //'webpack_dev_server': 'webpack-dev-server/client?http://localhost:8080',
+    //'webpack_hot': 'webpack/hot/dev-server',
+    'client': './src/client/index.js'
     },
     target: 'web',
     output: {
@@ -54,8 +64,8 @@ const client = {
     },
     resolve: {
       alias: {
-        components: path.resolve(__dirname, 'src/client/core/components'),
-        images: path.resolve(__dirname, 'src/client/core/assets/images'),
+        _components: path.resolve(__dirname, 'src/client/core/components'),
+        images: path.resolve(__dirname, 'src/client/assets/images'),
         api: path.resolve(__dirname, 'src/client/core/api'),
         ducks: path.resolve(__dirname, 'src/client/core/state-management/ducks'),
         helpers: path.resolve(__dirname, 'src/client/core/helpers'),
@@ -64,6 +74,7 @@ const client = {
     },
     module: moduleObj,
     plugins: [
+        // new webpack.HotModuleReplacementPlugin(),
         new HtmlWebPackPlugin({
             template: 'src/client/index.html'
         }),
@@ -73,12 +84,22 @@ const client = {
           filename: devMode ? '[name].css' : '[name].[hash].css',
           chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
         }),
-    ]
+        new CleanWebpackPlugin(['dist']),
+    ],
+  devServer:{
+    hot: true,
+    contentBase: './',
+  }
 };
 const server = {
-    mode: 'development',
+  devtool: 'eval-sourcemap',
+  name: 'server',
+  mode: 'development',
     entry: {
-        'server': './src/server/index.js'
+        index: [
+          //'./node_modules/webpack-hot-middleware/client?path=/__webpack_hmr&name=server&timeout=20000',
+          './src/server/index.js'
+        ]
     },
     target: 'node',
     output: {

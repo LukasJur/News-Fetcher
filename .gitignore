@@ -87,5 +87,4 @@ node_modules/
 
 # Project
 dist/
-src/server/config.json/
-
+src/server/config.json

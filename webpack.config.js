@@ -88,7 +88,7 @@ const client = {
     ],
   devServer:{
     hot: true,
-    contentBase: './',
+    contentBase: './src/client/',
   }
 };
 const server = {

@@ -8,6 +8,10 @@ const newsapi = new NewsAPI(require('./config')['API_Key']);
 const countries = require('./countries');
 //const compiler = webpack(webpackConfig);
 
+// TODO Add proper validation for countries
+// TODO Add more endpoints (sources, everything)
+// TODO Check for UnhandledPromiseRejection solution
+// TODO Add logging
 export default class WebServer {
   constructor() {
     this.app = express();
@@ -29,7 +33,7 @@ export default class WebServer {
       Object.keys(searchQuery).forEach(key => !searchQuery[key] && delete searchQuery[key]);
       /* If searchQuery is empty or country is invalid, send 404 response */
       if(Object.keys(searchQuery).length === 0){
-        res.status(404).send("No params")
+        res.status(400).send("Bad request - no params")
       }
      console.log("search query: ", searchQuery);
       /* Send request to newsapi */

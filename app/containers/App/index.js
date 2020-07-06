@@ -8,43 +8,26 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
+import { CssBaseline } from '@material-ui/core';
 
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import SearchPage from 'containers/SearchPage/Loadable';
 
-import GlobalStyle from '../../global-styles';
+const App = () => (
+  <div>
+    <Helmet titleTemplate="%s - News Fetcher" defaultTitle="News Fetcher">
+      <meta
+        name="description"
+        content="News Fetcher - a non-commercial UI facade for News API"
+      />
+    </Helmet>
+    <CssBaseline />
+    <Switch>
+      <Route exact path="/" component={SearchPage} />
+      <Route path="" component={NotFoundPage} />
+    </Switch>
+  </div>
+);
 
-const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column;
-`;
-
-export default function App() {
-  return (
-    <AppWrapper>
-      <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      <Footer />
-      <GlobalStyle />
-    </AppWrapper>
-  );
-}
+export default App;

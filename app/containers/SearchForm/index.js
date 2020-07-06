@@ -3,10 +3,19 @@ import { Paper } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
+import H2 from '../../components/H2';
+import CenteredSection from './CenteredSection';
 
-const Content = () =>
+const SearchForm = () => (
   <Paper>
-    Fetch me top news from
-  </Paper>;
+    <H2>
+      <CenteredSection>
+        <FormattedMessage {...messages.topLineText} />
+      </CenteredSection>
+    </H2>
+    <FormattedMessage {...messages.country} />
+    <FormattedMessage {...messages.category} />
+  </Paper>
+);
 
-export default Content;
+export default SearchForm;

@@ -1,29 +1,24 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import A from './A';
-import Img from './Img';
-import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
-import messages from './messages';
+import { makeStyles } from '@material-ui/styles';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
-function Header() {
+const useStyles = makeStyles(() => ({
+  typographyStyles: {
+    flex: 1,
+  },
+}));
+const Header = () => {
+  const classes = useStyles();
   return (
-    <div>
-      <A href="https://www.reactboilerplate.com/">
-        <Img src={Banner} alt="react-boilerplate - Logo" />
-      </A>
-      <NavBar>
-        <HeaderLink to="/">
-          <FormattedMessage {...messages.home} />
-        </HeaderLink>
-        <HeaderLink to="/features">
-          <FormattedMessage {...messages.features} />
-        </HeaderLink>
-      </NavBar>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography className={classes.typographyStyles}>
+          News Fetcher
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
-}
+};
 
 export default Header;

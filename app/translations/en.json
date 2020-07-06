@@ -3,6 +3,7 @@
   "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.components.Header.features": "Features",
   "boilerplate.components.Header.home": "Home",
+  "boilerplate.components.SearchButton.text": "Fetch",
   "boilerplate.containers.FeaturePage.css.header": "Features",
   "boilerplate.containers.FeaturePage.css.message": "Next generation CSS",
   "boilerplate.containers.FeaturePage.feedback.header": "Instant feedback",
@@ -27,5 +28,9 @@
   "boilerplate.containers.HomePage.tryme.message": "Show Github repositories by",
   "boilerplate.containers.LocaleToggle.de": "de",
   "boilerplate.containers.LocaleToggle.en": "en",
-  "boilerplate.containers.NotFoundPage.header": "Page not found."
+  "boilerplate.containers.NotFoundPage.header": "Page not found.",
+  "boilerplate.containers.SearchForm.topLineText": "Fetch top news from",
+  "boilerplate.containers.SearchForm.country": "country",
+  "boilerplate.containers.SearchForm.category": "category",
+  "boilerplate.containers.SearchForm.any": "any"
 }

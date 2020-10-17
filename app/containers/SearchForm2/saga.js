@@ -16,7 +16,7 @@ import request from '../../utils/request';
 import makeSelectFormData from './selectors';
 
 export function* getArticles() {
-  const formData = yield select(makeSelectFormData());
+  const formData = yield select(makeSelectSearchFormData());
   const requestURL = new URL('https://newsapi.org/v2/top-headlines');
 
   if (formData.country) {

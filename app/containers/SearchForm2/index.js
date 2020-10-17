@@ -17,7 +17,7 @@ import { Button, Grid, MenuItem, Paper } from '@material-ui/core';
 import CenteredSection from './CenteredSection';
 import StyledTextField from './StyledTextField';
 import PaddedHorizontalRow from './PaddedHorizontalRow';
-import makeSelectSearchForm2 from './selectors';
+import makeSelectSearchFormData from './selectors';
 import reducer from './reducer';
 import messages from './messages';
 import H2 from '../../components/H2';
@@ -46,7 +46,7 @@ export const SearchForm2 = props => {
 
   const categories = getCategories();
 
-  // TODO Add Flag icons to country dropdown (use https://www.countryflags.io/)
+  //TODO Add Flag icons to country dropdown (use https://www.countryflags.io/)
 
   return (
     <Paper>
@@ -124,7 +124,7 @@ SearchForm2.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  searchForm2: makeSelectSearchForm2(),
+  searchForm2: makeSelectSearchFormData(),
 });
 
 const mapDispatchToProps = dispatch => ({

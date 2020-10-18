@@ -12,19 +12,26 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+
 import { getCountries, getCategories } from 'utils/parametersUtils';
 import { Button, Grid, MenuItem, Paper } from '@material-ui/core';
+import saga from "./saga";
+import { submitSearch } from './actions';
 import CenteredSection from './CenteredSection';
 import StyledTextField from './StyledTextField';
 import PaddedHorizontalRow from './PaddedHorizontalRow';
-import makeSelectSearchFormData from './selectors';
+import { makeSelectSearchFormData } from './selectors';
 import reducer from './reducer';
 import messages from './messages';
 import H2 from '../../components/H2';
-import { changeCountry } from '../SearchForm/actions';
 
 export const SearchForm2 = props => {
-  useInjectReducer({ key: 'searchForm2', reducer });
+  const key = 'searchForm2';
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga }); 
+  const {onSubmitForm} = props;
+
   const [country, setCountry] = useState('');
   const [isCountryRequired, setCountryRequired] = useState(true);
   const [category, setCategory] = useState('');
@@ -40,7 +47,10 @@ export const SearchForm2 = props => {
     setCountryRequired(false);
   };
 
-  const submitSearchForm = () => {console.log("Submitted")};
+  const submitSearchForm = ev => {
+    ev.preventDefault();
+    onSubmitForm({country, category});
+  };
 
   const countries = getCountries();
 
@@ -82,7 +92,7 @@ export const SearchForm2 = props => {
               chwidth={25}
             >
               {countries.map(cnt => (
-                <MenuItem key={cnt.key} value={cnt.name}>
+                <MenuItem key={cnt.key} value={cnt.code}>
                   {cnt.name}
                 </MenuItem>
               ))}
@@ -108,7 +118,7 @@ export const SearchForm2 = props => {
         </Grid>
         <PaddedHorizontalRow item xs={2} pad={0.5} />
         <Grid item xs={2}>
-          <Button variant="contained" color="primary" onSubmit={submitSearchForm}>
+          <Button variant="contained" color="primary" onClick={submitSearchForm}>
             <FormattedMessage {...messages.fetchButton} />
           </Button>
         </Grid>
@@ -128,7 +138,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeCountry: evt => dispatch(changeCountry(evt.target.value)),
+  onSubmitForm: data => dispatch(submitSearch(data)),
 });
 
 const withConnect = connect(

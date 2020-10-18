@@ -2,20 +2,20 @@ import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
 /**
- * Direct selector to the searchForm2 state domain
+ * Direct selector to the searchForm state domain
  */
 
 const selectSearchFormDomain = state => state || initialState;
 
 /**
- * Form data selector used by SearchForm2
+ * Form data selector used by SearchForm
  */
  
-const makeSelectSearchFormData= () =>
+export const makeSelectSearchFormData= () =>
   createSelector(
     selectSearchFormDomain,
-    searchFormState => searchFormState,
+    searchFormState => searchFormState.searchForm2,
   ); 
 
-export default makeSelectSearchFormData;
+// export default makeSelectSearchFormData;
 // export default selectSearchFormDomain;

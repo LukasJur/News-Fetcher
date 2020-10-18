@@ -7,4 +7,4 @@ export const KEYWORD_PARAMETER = 'keyword';
 export const X_API_KEY_HEADER = 'X-Api-Key';
 
 /** API key */
-export * from './api_key';
+export API_KEY from './api_key';
